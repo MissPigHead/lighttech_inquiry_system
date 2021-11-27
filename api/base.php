@@ -96,4 +96,5 @@ $User=new DB('user');
 $Customer=new DB('customer');
 $Products=new DB('products');
 $Category=new DB('category');
+$Price=new DB('price');
 ?>

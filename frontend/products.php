@@ -98,7 +98,35 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
                   <td><?= $p['name'] ?></td>
                   <td class="d-none d-md-table-cell"><img src="<?= $p['image'] ?>" width="100%"></td>
                   <td class="text-left"><?= $p['description'] ?></td>
-                  <td><?= $p['moq'] ?></td>
+                  <td>
+
+                  <select name="" id="">
+                    <option value=""></option>
+
+
+                  <?php
+                  $price_list=$Price->all(['product_id'=>$p['id']]);
+                  foreach ($price_list as $k=>$price) {
+                    if($k<(count($price_list)-1)){
+                      ?>
+                    <option value="<?=$price['id']?>"><?=$price['quantity']?>~<?=$price_list[$k+1]['quantity']?>單位：<?=$price['price']?>元</option>
+
+<?php
+                    }else{
+
+                    
+                    ?>
+
+<option value="<?=$price['id']?>"><?=$price['quantity']?>單位以上數量：<?=$price['price']?></option>
+                    
+                    <?php
+                    // echo $k."/".$price['id']."/".$price['quantity']."/".$price['price']."<br>";
+                    # code...
+                  }
+                }
+                  ?>
+                  </select>
+                  </td>
                   <td class="text-left d-none d-sm-table-cell"><?= $p['remark'] ?></td>
                 </tr>
             <?php
