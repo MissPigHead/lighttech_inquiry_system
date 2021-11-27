@@ -46,9 +46,9 @@ if (isset($_SESSION['sales']) || isset($_SESSION['customer'])) {
         }, function(res) {
           console.log(res)
           if (res == 1) {
-            location.href = "?backend=inquiry";
+            location.href = "index.php?backend=inquiry";
           } else if (res == 2) {
-            location.href = "?page=products";
+            location.href = "index.php?page=products";
           } else {
             Swal.fire({
               icon: 'error',

@@ -23,13 +23,14 @@ if(isset($_GET['page'])){ // 頁簽 title
 
 include_once "layout/frame_head.php";
 
+$file='';
 if(isset($_GET['page'])){
-  include_once "frontend/".$_GET['page'].".php";
+  $file="frontend/".$_GET['page'].".php";
 }elseif (isset($_GET['backend'])) {
-  include_once "backend/".$_GET['backend'].".php";
-}else{
-  include_once "frontend/main.php";
+  $file="backend/".$_GET['backend'].".php";
 }
+
+is_file($file)?include_once $file:include_once "frontend/main.php";
 
 include_once "layout/frame_footer.php";
 ?>

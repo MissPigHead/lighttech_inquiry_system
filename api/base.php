@@ -94,5 +94,6 @@ function to($url){
 
 $User=new DB('user');
 $Customer=new DB('customer');
-$Product=new DB('product');
+$Products=new DB('products');
+$Category=new DB('category');
 ?>

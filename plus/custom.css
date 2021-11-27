@@ -111,9 +111,22 @@ input:-webkit-autofill:focus{
 
 th,
 td {
-    white-space: nowrap;
+    white-space: pre-wrap;
     text-align: center;
     vertical-align: middle !important;
+}
+
+#products_table{
+    table-layout: fixed;
+}
+
+#products_table img{
+    max-height: 100px;
+    width: auto;
+}
+
+.d-table-cell{
+    display: table-cell;
 }
 
 .w-4rem {
@@ -251,13 +264,11 @@ input.NUM-INPUT::-webkit-inner-spin-button {
     transition: all 0.2s ease-in-out;
 }
 
-@media (max-width: 767.98px) {
-    #products .topic {
-        font-size: 1.8rem;
+@media (max-width: 768px) {
+    #products_table img{
+        max-width: 100px;
     }
- }
+}
+
 @media (max-width: 575.98px) {
-    #products input[name='quantity']{
-       width: 50px;
-   }
  }
