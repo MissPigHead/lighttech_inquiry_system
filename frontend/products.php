@@ -6,7 +6,7 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
 <div class="container my-2">
   <div class="row justify-content-center">
     <div class="col-12 col-sm-10 col-md-8 mt-3 text-center">
-      <h4>商品價格查詢</h4>
+      <h4>商品牌價查詢</h4>
     </div>
     <form class="mt-1 col-12">
       <div class="form-row justify-content-center">
@@ -23,7 +23,7 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
             <label class="input-group-text">子目錄</label>
           </div>
           <select class="custom-select" id="child_cate">
-            <option value="" selected>...</option>
+            <option value="all" data-parent="all" selected>...</option>
           </select>
         </div>
       </div>
@@ -51,14 +51,12 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
         if ($c['parent'] == 0) {
       ?>
           <script>
-            // console.log('p', <?= $c['id'] ?>, "<?= $c['name'] ?>")
             $("#parent_cate").append("<option value=<?= $c['id'] ?>><?= $c['name'] ?></option>")
           </script>
         <?php
         } else {
         ?>
           <script>
-            // console.log('c', <?= $c['id'] ?>, "<?= $c['name'] ?>")
             $("#child_cate").append("<option data-parent=<?= $c['parent'] ?> value=<?= $c['id'] ?>><?= $c['name'] ?></option>")
             $("#child_cate option").hide()
           </script>
@@ -66,68 +64,38 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
         }
       }
       ?>
-      <script>
-        let cate_id;
-        $("#parent_cate").change(function(e) {
-          e.preventDefault();
-          cate_id = $("#parent_cate").val()
-          console.log(cate_id)
-          $("#child_cate option").hide()
-          $(`#child_cate option[data-parent=${$("#parent_cate").val()}]`).show()
-        });
-      </script>
-
       <div class="table-responsive mt-3">
-        <table class="table table-sm" id="products_table">
+        <table id="products_table">
           <thead>
-            <tr class="table-info">
-              <th scope="col">品名</th>
-              <th scope="col" class="d-none d-md-table-cell">圖片</th>
-              <th scope="col">描述</th>
-              <th scope="col">數量 / 價格</th>
-              <th scope="col" class="d-none d-sm-table-cell">備註</th>
+            <tr class="table-info text-center row">
+              <th scope="col" class="col-3 col-sm-2">品名</th>
+              <th scope="col" class="col-2 d-none d-sm-table-cell">圖片</th>
+              <th scope="col" class="col-3">描述</th>
+              <th scope="col" class="col-3 col-lg-2">數量 / 價格</th>
+              <th scope="col" class="col-3 col-sm-2 col-lg-3">備註</th>
             </tr>
           </thead>
           <tbody>
             <?php
             foreach ($products as $p) {
-              // if($p)
               if (!in_array($p['cate_id'], $c_i_arr)) {
             ?>
-                <tr data-cate=<?= $p['cate_id'] ?>>
-                  <td><?= $p['name'] ?></td>
-                  <td class="d-none d-md-table-cell"><img src="<?= $p['image'] ?>" width="100%"></td>
-                  <td class="text-left"><?= $p['description'] ?></td>
-                  <td>
-
-                  <select name="" id="">
-                    <option value=""></option>
-
-
-                  <?php
-                  $price_list=$Price->all(['product_id'=>$p['id']]);
-                  foreach ($price_list as $k=>$price) {
-                    if($k<(count($price_list)-1)){
-                      ?>
-                    <option value="<?=$price['id']?>"><?=$price['quantity']?>~<?=$price_list[$k+1]['quantity']?>單位：<?=$price['price']?>元</option>
-
-<?php
-                    }else{
-
-                    
-                    ?>
-
-<option value="<?=$price['id']?>"><?=$price['quantity']?>單位以上數量：<?=$price['price']?></option>
-                    
-                    <?php
-                    // echo $k."/".$price['id']."/".$price['quantity']."/".$price['price']."<br>";
-                    # code...
-                  }
-                }
-                  ?>
-                  </select>
+                <tr data-cate=<?= $p['cate_id'] ?> class="row">
+                  <td class="col-3 col-sm-2"><?= $p['name'] ?></td>
+                  <td class="col-2 px-0 d-none d-sm-table-cell"><img src="<?= $p['image'] ?>" width="100%"></td>
+                  <td class="col-3 text-left"><?= $p['description'] ?></td>
+                  <td class="col-3 col-lg-2 text-left"><?php
+                                                        $price_list = $Price->all(['product_id' => $p['id']]);
+                                                        foreach ($price_list as $k => $price) {
+                                                          if ($k < (count($price_list) - 1)) {
+                                                            echo "{$price['quantity']}~{$price_list[$k + 1]['quantity']}:{$price['price']}元<br>";
+                                                          } else {
+                                                            echo "{$price['quantity']}以上:{$price['price']}";
+                                                          }
+                                                        }
+                                                        ?>
                   </td>
-                  <td class="text-left d-none d-sm-table-cell"><?= $p['remark'] ?></td>
+                  <td class="col-3 col-sm-2 col-lg-3 text-left"><?= $p['remark'] ?></td>
                 </tr>
             <?php
               }
@@ -140,3 +108,49 @@ if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
   </form>
 </div>
 </div>
+<script>
+  function select_parent(){
+    let show_cate_id;
+    let parent_cate_id = $("#parent_cate").val()
+    $("#child_cate option").hide()
+    if (parent_cate_id == 'all') {
+      $("#child_cate").val('all')
+      $('tbody tr').each(function(i, e) {
+        $(e).show();
+      })
+    } else {
+      $(`#child_cate option[data-parent=${parent_cate_id}]`).show()
+      $(`#child_cate option[data-parent=all]`).show()
+      $("#child_cate")[0].selectedIndex = 0;
+      $('tbody tr').each(function(i, e) {
+        $(e).hide();
+      })
+      $(`#child_cate option[data-parent=${parent_cate_id}]`).each(function(i, e) {
+        show_cate_id = $(e).val()
+        $(`tbody tr[data-cate=${show_cate_id}]`).show()
+      });
+    }
+  }
+
+  $("#parent_cate").change(function(e) {
+    e.preventDefault();
+    select_parent();
+  });
+
+  function select_child(){
+    let child_cate_id=$("#child_cate").val()
+    $('tbody tr').each(function(i, e) {
+      $(e).hide();
+    })
+    if (child_cate_id == 'all') {
+      select_parent()
+    }else{
+      $(`tbody tr[data-cate=${child_cate_id}]`).show()
+    }
+  }
+
+  $("#child_cate").change(function(e) {
+    e.preventDefault();
+    select_child()
+  })
+</script>
