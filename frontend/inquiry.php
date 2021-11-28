@@ -186,6 +186,7 @@ if (!isset($_SESSION['user'])) {
     $(`[data-item=${item}] input[name='price[]']`).attr('disabled', true)
   }
 
+  // 增加商品項目
   function add_inquiry_item() {
     let a = $('[data-item=1]').clone()
     if (data_item == 5) {
@@ -194,7 +195,7 @@ if (!isset($_SESSION['user'])) {
         html: '每單限制5項商品，以利為您加速處理訂單與結案。<br>若有更多需求，歡迎填寫新的詢價單，謝謝。',
       })
     } else {
-      if (isNaN(parseInt($(`[data-item=${data_item}] input[name='quantity[]']`).val())) || parseInt($(`[data-item=${data_item}] input[name='quantity[]']`).val()) == 0) {
+      if (isNaN(parseInt($(`[data-item=${data_item}] input[name='quantity[]']`).val())) || parseInt($(`[data-item=${data_item}] input[name='quantity[]']`).val()) == 0 || $(`[data-item=${data_item}] input[name='price[]']`).val()=='') {
         Swal.fire({
           icon: 'warning',
           html: '請確認目前商品名稱正確、數量填寫完畢，<br>再進行下一項商品詢價，謝謝。',

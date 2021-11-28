@@ -35,7 +35,7 @@
         if ($_SESSION['priority'] != 2) {
         ?>
           <li>
-            <a href="?page=products" class="hover-pink">
+            <a href="?backend=inquiry" class="hover-pink">
               客戶詢價表
             </a>
           </li>

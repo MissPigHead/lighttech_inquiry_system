@@ -93,6 +93,12 @@ input:-webkit-autofill:focus {
     color: var(--pink00);
 }
 
+.row.hover-pink00:hover {
+    color: var(--pink00);
+    background-color: white;
+    cursor: pointer;
+}
+
 .bg-yellow01 {
     background: var(--yellow01);
 }

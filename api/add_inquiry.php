@@ -29,4 +29,5 @@ foreach ($_POST['product'] as $k => $v) {
   ]);
 }
 
+to("/index.php");
 ?>
