@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['sales']) || isset($_SESSION['customer'])) {
+if (isset($_SESSION['user'])) {
   to("index.php");
 }
 ?>
@@ -46,9 +46,7 @@ if (isset($_SESSION['sales']) || isset($_SESSION['customer'])) {
         }, function(res) {
           console.log(res)
           if (res == 1) {
-            location.href = "index.php?backend=inquiry";
-          } else if (res == 2) {
-            location.href = "index.php?page=products";
+            location.href = "index.php";
           } else {
             Swal.fire({
               icon: 'error',

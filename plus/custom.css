@@ -64,6 +64,10 @@ a:hover {
     text-decoration: none;
 }
 
+a.hover-pink:hover {
+    color: var(--pink00);
+}
+
 input {
     color: var(--bluegray01) !important;
 }

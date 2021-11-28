@@ -29,7 +29,7 @@
             <h2 class="text-secondary">客戶詢價系統</h2>
           </a>
           <?php
-          if (isset($_SESSION['sales']) || isset($_SESSION['customer'])) {
+          if (isset($_SESSION['user'])) {
           ?>
             <a href="api/logout.php">
               <button class="btn btn-dark-gray">登出</button>

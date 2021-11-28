@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['sales']) && !isset($_SESSION['customer'])) {
+if (!isset($_SESSION['user'])) {
   to("index.php");
 }
 ?>

@@ -97,4 +97,6 @@ $Customer=new DB('customer');
 $Products=new DB('products');
 $Category=new DB('category');
 $Price=new DB('price');
+$Inquiry=new DB('inquiry');
+$Inquiry_details=new DB('inquiry_details');
 ?>

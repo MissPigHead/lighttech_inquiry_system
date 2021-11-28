@@ -8,11 +8,7 @@ $user=$User->find(['account'=>$account,'password'=>$password]);
 if(empty($user)){
     echo 0;
 }else{
-  if ($user['priority']==1) {
-    $_SESSION['sales']=$account;
-    echo 1;
-  }else{
-    $_SESSION['customer']=$account;
-    echo 2;
-  }
+  $_SESSION['priority']=$user['priority'];
+  $_SESSION['user']=$account;
+  echo 1;
 }
