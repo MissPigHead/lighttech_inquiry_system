@@ -99,6 +99,10 @@ input:-webkit-autofill:focus {
     cursor: pointer;
 }
 
+.row.hover-pointer:hover {
+    cursor: pointer;
+}
+
 .bg-yellow01 {
     background: var(--yellow01);
 }

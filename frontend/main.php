@@ -1,6 +1,6 @@
 <div class="container my-2">
   <div class="row justify-content-center">
-    <div class="col-12 col-sm-8 col-md-6 my-3 text-center">
+    <div class="col-12 col-sm-8 col-md-6 mt-3 text-center">
       <h4>歡迎使用 MissPigHead 詢價系統</h4>
     </div>
     <div class="w-100"></div>
@@ -25,7 +25,7 @@
     <?php
     } else {
     ?>
-    <div class="col-12 col-sm-8 col-md-6 col-lg-5">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-5 mt-4 mb-2">
       Hi,&nbsp;<?= $_SESSION['user'] ?>! 歡迎進入以下內容：
     </div>
     <div class="w-100"></div>
@@ -44,7 +44,7 @@
         ?>
           <li>
             <a href="?page=products" class="hover-pink">
-              商品價格表
+              商品價格表（使用目錄選單，羅列商品價格）
             </a>
           </li>
           <li>
@@ -53,8 +53,8 @@
             </a>
           </li>
           <li>
-            <a href="#" class="hover-pink">
-              歷史詢價記錄（未建立）
+            <a href="?page=inquiry_history" class="hover-pink">
+              歷史詢價記錄
             </a>
           </li>
         <?php

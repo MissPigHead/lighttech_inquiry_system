@@ -2,6 +2,14 @@
 if (!isset($_SESSION['user'])) {
   to("index.php");
 }
+if(isset($_SESSION['err']['price'])){
+  ?>
+  <script>
+alert("<?=$_SESSION['err']['price']?>")
+  </script>
+  <?php
+  unset($_SESSION['err']['price']);
+}
 ?>
 <div class="container my-2">
   <div class="row justify-content-center">
@@ -10,9 +18,7 @@ if (!isset($_SESSION['user'])) {
     </div>
     <form class="col-12" name="inquiry" method="post" action="api/add_inquiry.php">
       <h5 class="text-secondary mt-3">商品項目</h5>
-      <!-- -------- -->
       <div class="form-row justify-content-center mt-2" data-item=1>
-
         <div class="input-group col-12 col-sm-6 col-md-4 mt-1">
           <div class="input-group-prepend">
             <label class="input-group-text">主目錄</label>
