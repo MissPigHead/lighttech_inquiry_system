@@ -8,12 +8,13 @@ echo "</pre>";
 $check=1;
 
 foreach ($_POST['product'] as $k => $v){
-  if(mb_strlen($_POST['price'][$k])==0){
+  if(strlen($_POST['price'][$k])==0){
     $_SESSION['err']['price']="請在輸入數量後，選擇交期或輸入詢價內容，亦可點螢幕其他位置，確認商品價格正常顯示之後，才可按下送出，不然抓不到價格。前一次儲存失敗，煩請重新送單。";
     $check=0;
   }
 }
 
+echo $check;
 
 if($check){
   $Inquiry->save([
@@ -38,10 +39,8 @@ if($check){
       'deliver_date'=>$_POST['deliver_date'][$k]
     ]);
   }
-  
-  to("/index.php");
+  to("/index.php?page=inquiry_history");
 }else{
   to("/index.php?page=inquiry");
-
 }
 ?>

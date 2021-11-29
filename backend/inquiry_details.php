@@ -2,6 +2,9 @@
 if (!isset($_SESSION['user']) || $_SESSION['priority'] > 1) {
   to("index.php");
 }
+if(!isset($_GET['i_id'])){
+  to("/index.php?backend=inquiry");
+}
 $sales = $User->find(['account' => $_SESSION['user']]);
 $inquiry = $Inquiry->find($_GET['i_id']);
 $inquiry_details = $Inquiry_details->all(['inquiry_id' => $_GET['i_id']]);
@@ -49,7 +52,7 @@ $inquiry_details = $Inquiry_details->all(['inquiry_id' => $_GET['i_id']]);
             <div class="input-group-prepend">
               <label class="input-group-text">報價</label>
             </div>
-            <input type="text" data-price="p" name="price[<?= $item['id'] ?>]" class="form-control" disabled value="<?= $item['price'] ?>">
+            <input type="text" data-price="p" name="price[<?= $item['id'] ?>]" class="form-control" disabled value="<?= empty($item['cus_price'])?$item['price']:$item['cus_price'] ?>">
           </div>
           <div class="input-group col-12 col-sm-6 col-md-4 mt-1">
             <div class="input-group-prepend">

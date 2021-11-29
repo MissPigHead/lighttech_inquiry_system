@@ -2,7 +2,6 @@
 if (!isset($_SESSION['user']) || $_SESSION['priority'] > 1) {
   to("index.php");
 }
-
 $i_list = $Inquiry->all();
 ?>
 <div class="container my-2">
@@ -10,16 +9,12 @@ $i_list = $Inquiry->all();
     <div class="col-12 col-sm-10 col-md-8 mt-3 text-center">
       <h4>客戶詢價紀錄</h4>
     </div>
-
     <div class="col-12 col-md-10 col-lg-8 col-xl-7 mt-3">
-
     <!-- 多筆數的撈取條件 & 版面  待處理 -->
-
       <?php
       foreach ($i_list as $i) {
-        $ans = empty($i['sales_id']) ? "尚未回應!!" : "";
+        $ans = empty($i['sales_id']) ? "尚未回應!!" : $User->find($i['sales_id'])['account']."回";
         $icon = empty($i['sales_id']) ? "" : "-check";
-
         $count = $Inquiry_details->count(['inquiry_id' => $i['id']]);
       ?>
         <a href="?backend=inquiry_details&i_id=<?=$i['id']?>">
@@ -34,7 +29,6 @@ $i_list = $Inquiry->all();
       <?php
       }
       ?>
-
     </div>
   </div>
 </div>
